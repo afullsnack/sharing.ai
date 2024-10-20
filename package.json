@@ -12,9 +12,11 @@
   "author": "Miracle Friday <miraclef60@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@legendapp/state": "3.0.0-beta.12",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.3",
@@ -27,10 +29,12 @@
     "lucide-react": "^0.453.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.1",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "vinxi": "^0.4.3",
-    "vite-tsconfig-paths": "^5.0.1"
+    "vite-tsconfig-paths": "^5.0.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@tanstack/router-devtools": "^1.74.0",
