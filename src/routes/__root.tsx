@@ -5,6 +5,7 @@ import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
 import * as React from 'react'
 import "@/styles/globals.css"
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { Toaster } from '@/components/ui/toaster' 
 
 export const Route = createRootRoute({
   meta: () => [
@@ -39,6 +40,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </Head>
       <Body>
         {children}
+        <Toaster />
         <ScrollRestoration />
         <Scripts />
         <TanStackRouterDevtools position="bottom-right" />

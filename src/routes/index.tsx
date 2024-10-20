@@ -8,6 +8,7 @@ import { Container, Main, Section } from '@/components/craft'
 import { useObservable, observer, useObserve } from "@legendapp/state/react"
 import { Card, CardContent } from '@/components/ui/card'
 import { RefreshCcw } from 'lucide-react'
+import PromptForm from '@/components/forms/prompt'
 
 const filePath = 'count.txt'
 
@@ -44,7 +45,7 @@ const updateCount = createServerFn('POST', async (addBy: number) => {
 
 export const Route = createFileRoute('/')({
   component: observer(Home),
-  loader: async () => await getCount(),
+  // loader: async () => await getCount(),
   preload: true,
 })
 
@@ -57,22 +58,22 @@ export const Route = createFileRoute('/')({
 
 
 function Home() {
-  const router = useRouter()
-  const state = Route.useLoaderData()
-  const count = useObservable(state)
+  // const router = useRouter()
+  // const state = Route.useLoaderData()
+  const count = useObservable(0)
 
   useObserve(count, () => {
     console.log(count.get(), ":::count updated")
   })
 
   return (
-    <Main>
+    <Main className='lg:max-w-3xl grid place-items-center items-center mx-auto !my-0'>
       <Section>
-        <Container className='grid space-y-3'>
-          <h1 className='text-2xl md:text-3xl m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left dark:text-white font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-500 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
-            Create sharable and lead generating links, with AI.
+        <Container className='grid gap-2 !py-2'>
+          <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left dark:text-white font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
+            Create sharable, lead generating links with AI.
           </h1>
-          <span className='text-balance text-lg md:text-xl lg:text-2xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your lead generating links</span>
+          <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
         </Container>
         <Container className='grid grid-cols-4 gap-3 !py-2'>
           {
@@ -83,8 +84,8 @@ function Home() {
               'How can I create engaging and lead generating links for my business'
             ].map((v, index) => (
               <Card key={index}>
-                <CardContent className='py-4'>
-                  <p className='text-sm md:text-[12px] text-balance leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left'>{v}</p>
+                <CardContent className='p-3'>
+                  <p className='text-sm md:text-[12px] leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left'>{v}</p>
                 </CardContent>  
               </Card>
             ))
@@ -95,6 +96,9 @@ function Home() {
               Refresh Prompts
             </Button>
           </div>
+        </Container>
+        <Container className=''>
+          <PromptForm />
         </Container>
       </Section>
     </Main>
