@@ -1,6 +1,6 @@
 // app/routes/index.tsx
 import * as fs from 'fs'
-import { createFileRoute, useRouter, Outlet } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 import { Button } from '@/components/ui/button'
 import { Container, Main, Section } from '@/components/craft'
