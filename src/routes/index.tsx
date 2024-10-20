@@ -4,7 +4,8 @@ import { createFileRoute, useRouter, Outlet } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 import { Button } from '@/components/ui/button'
 import { Container, Section } from '@/components/craft'
-import { useEffect, useState } from 'react'
+// import { observable } from "@legendapp/state"
+import { useObservable, observer, useObserve } from "@legendapp/state/react"
 
 const filePath = 'count.txt'
 
@@ -20,8 +21,14 @@ async function readCount() {
   )
 }
 
-export const getCount = createServerFn('GET', () => {
+export const getCount = createServerFn('GET', (_, { request }) => {
   "use server"
+  const forwardedFor = request.headers.get('X-Forwarded-For');
+
+  if(forwardedFor && typeof forwardedFor === 'string') {
+    console.log(forwardedFor, ":::user IP")
+    console.log(forwardedFor.split(',')[0].trim(), ":::trimed IP")
+  }
 
   return readCount()
 })
@@ -34,23 +41,27 @@ const updateCount = createServerFn('POST', async (addBy: number) => {
 })
 
 export const Route = createFileRoute('/')({
-  component: Home,
+  component: observer(Home),
   loader: async () => await getCount(),
   preload: true,
 })
 
-function Home() {
+
+/**
+* Track login state of user/gues
+* Render landing page
+* Start generation flow based on mode
+*/
+
+
+function Home () {
   const router = useRouter()
   const state = Route.useLoaderData()
+  const count = useObservable(state)
 
-  const [count, setCount] = useState(state ?? 0)
-  // useEffect(() => {
-  //   if (state && !count) {
-  //     setCount(state);
-  //   }
-  // }, [])
-
-  console.log(state, ":::initial state")
+  useObserve(count, () => {
+    console.log(count.get(), ":::count updated")
+  })
 
   return (
     <Section>
@@ -68,8 +79,8 @@ function Home() {
         </Button>
       </Container>
       <Container>
-        <h1>CLient state on load {count}</h1>
-        <Button onClick={() => setCount(_count => _count + 1)}>Only update client</Button>
+        <h1>CLient state on load {count.get()}</h1>
+        <Button onClick={() => count.set(_count => _count + 1)}>Only update client</Button>
       </Container>
     </Section>
   )
