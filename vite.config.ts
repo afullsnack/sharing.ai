@@ -22,5 +22,8 @@ export default defineConfig({
     ssr: {
       entry: "./src/ssr.tsx"
     }
+  },
+  server: {
+    preset: "vercel"
   }
 })

@@ -26,3 +26,8 @@ dist-ssr
 # environment variable
 .env*
 .env.*
+.vercel
+
+# build output
+.vercel
+.vinxi
