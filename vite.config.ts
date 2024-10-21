@@ -24,6 +24,10 @@ export default defineConfig({
     }
   },
   server: {
-    preset: "vercel"
+    preset: "vercel",
+    output: {
+      dir: "dist",
+      serverDir: "dist/server"
+    }
   }
 })
