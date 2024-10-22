@@ -9,7 +9,6 @@ import { useObservable, observer, useObserve } from "@legendapp/state/react"
 import { Card, CardContent } from '@/components/ui/card'
 import { RefreshCcw } from 'lucide-react'
 import PromptForm from '@/components/forms/prompt'
-import * as React from "react"
 
 const filePath = 'count.txt'
 
@@ -93,7 +92,7 @@ function Home() {
               <Card key={index}>
                 <CardContent className='p-3'>
                   <p className='text-sm md:text-[12px] leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left'>{v}</p>
-                </CardContent>  
+                </CardContent>
               </Card>
             ))
           }
@@ -106,6 +105,9 @@ function Home() {
         </Container>
         <Container className=''>
           <PromptForm />
+        </Container>
+        <Container>
+          <Button onClick={async () => updateCount(1).then(() => router.invalidate())}>Test server function: Count = {count.get()} : State = {state}</Button>
         </Container>
       </Section>
     </Main>
