@@ -33,7 +33,7 @@ export default defineConfig({
     }
   },
   server: {
-    preset: "node-server",
+    preset: "vercel",
     // prerender: {
     //   routes: ['/'],
     //   crawlLinks: true
