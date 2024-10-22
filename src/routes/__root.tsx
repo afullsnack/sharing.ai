@@ -38,7 +38,7 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <Html>
+    <Html lang='en'>
       <Head>
         <Meta />
       </Head>
