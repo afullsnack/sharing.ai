@@ -26,6 +26,7 @@ async function readCount() {
 
 export const getCount = createServerFn('GET', (_, { request }) => {
   "use server"
+
   const forwardedFor = request.headers.get('X-Forwarded-For');
 
   if (forwardedFor && typeof forwardedFor === 'string') {
@@ -105,9 +106,6 @@ function Home() {
         </Container>
         <Container className=''>
           <PromptForm />
-        </Container>
-        <Container>
-          <Button onClick={async () => updateCount(1).then(() => router.invalidate())}>Test server function: Count = {count.get()} : State = {state}</Button>
         </Container>
       </Section>
     </Main>
