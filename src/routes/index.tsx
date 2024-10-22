@@ -1,6 +1,6 @@
 // app/routes/index.tsx
 import * as fs from 'fs'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 import { Button } from '@/components/ui/button'
 import { Container, Main, Section } from '@/components/craft'
@@ -9,6 +9,7 @@ import { useObservable, observer, useObserve } from "@legendapp/state/react"
 import { Card, CardContent } from '@/components/ui/card'
 import { RefreshCcw } from 'lucide-react'
 import PromptForm from '@/components/forms/prompt'
+import * as React from "react"
 
 const filePath = 'count.txt'
 
@@ -45,8 +46,14 @@ const updateCount = createServerFn('POST', async (addBy: number) => {
 
 export const Route = createFileRoute('/')({
   component: observer(Home),
-  // loader: async () => await getCount(),
-  preload: true,
+  errorComponent: () => (<h1>An error occured, contact support</h1>),
+  onCatch(error, errorInfo) {
+    console.log(error, errorInfo, ":::error and errorInfo");
+  },
+  onError(error) {
+    console.log(error, ":::error_onError")
+  },
+  loader: async () => await getCount(),
 })
 
 
@@ -58,9 +65,9 @@ export const Route = createFileRoute('/')({
 
 
 function Home() {
-  // const router = useRouter()
-  // const state = Route.useLoaderData()
-  const count = useObservable(0)
+  const router = useRouter()
+  const state = Route.useLoaderData()
+  const count = useObservable(state ?? 0)
 
   useObserve(count, () => {
     console.log(count.get(), ":::count updated")

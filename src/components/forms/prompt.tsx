@@ -72,7 +72,10 @@ function PromptForm() {
                         Image
                       </Button>
                     </div>
-                    <Button type="submit" disabled={!(field.value ?? '').trim()}>
+                    <Button
+                      type="submit"
+                      disabled={!(field.value ?? '').trim()}
+                      >
                       <SendIcon className="w-4 h-4 mr-" />
                       Submit
                     </Button>

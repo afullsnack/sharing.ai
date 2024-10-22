@@ -31,3 +31,11 @@ dist-ssr
 # build output
 .vercel
 .vinxi
+.vercel/*
+.vinxi/*
+.vercel/
+.vinxi/
+.output
+.output/*
+.output/
+count.txt

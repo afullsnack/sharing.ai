@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vinxi dev",
-    "build": "vinxi build --preset vercel",
-    "start": "vinxi start --preset vercel"
+    "build": "vinxi build --preset node-server",
+    "start": "vinxi start --preset node-server"
   },
   "keywords": [],
   "author": "Miracle Friday <miraclef60@gmail.com>",

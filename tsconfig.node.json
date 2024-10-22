@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "target": "ES2022",
     "lib": [
       "ES2023"
@@ -23,6 +24,6 @@
     }
   },
   "include": [
-    "app.config.ts"
+    "vite.config.ts"
   ]
 }

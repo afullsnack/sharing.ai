@@ -6,8 +6,17 @@ import tsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   vite: {
+   // optimizeDeps: {
+   //    esbuildOptions: {
+   //      jsx: 'automatic'
+   //    }
+   //  },
     plugins:  [
-      tsConfigPaths()
+      tsConfigPaths(),
+      // react({
+      //   include: /\.(mdx|js|jsx|ts|tsx)$/,
+      //   jsxRuntime: "automatic"
+      // })
     ]
   },
   tsr: {
@@ -24,10 +33,14 @@ export default defineConfig({
     }
   },
   server: {
-    preset: "vercel",
-    output: {
-      dir: "dist",
-      serverDir: "dist/server"
-    }
+    preset: "node-server",
+    // prerender: {
+    //   routes: ['/'],
+    //   crawlLinks: true
+    // }
+    // output: {
+    //   dir: "dist",
+    //   serverDir: "dist/server"
+    // }
   }
 })

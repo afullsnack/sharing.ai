@@ -2,8 +2,9 @@
 import { createRootRoute } from '@tanstack/react-router'
 import { Outlet, ScrollRestoration } from '@tanstack/react-router'
 import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
-import * as React from 'react'
-import "@/styles/globals.css"
+import * as React from "react"
+// @ts-ignore
+import appCss from "@/styles/globals.css?url"
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { Toaster } from '@/components/ui/toaster' 
 
@@ -19,6 +20,9 @@ export const Route = createRootRoute({
     {
       title: 'Test application',
     },
+  ],
+  links: () => [
+    { rel: 'stylesheet', href: appCss }
   ],
   component: RootComponent,
   notFoundComponent: () => (<div>Not found</div>)
