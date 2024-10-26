@@ -7,6 +7,7 @@ import * as React from "react"
 import appCss from "@/styles/globals.css?url"
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { Toaster } from '@/components/ui/toaster' 
+import { NotFound } from '@/components/not-found'
 
 export const Route = createRootRoute({
   meta: () => [
@@ -25,7 +26,7 @@ export const Route = createRootRoute({
     { rel: 'stylesheet', href: appCss }
   ],
   component: RootComponent,
-  notFoundComponent: () => (<div>Not found</div>)
+  notFoundComponent: NotFound
 })
 
 function RootComponent() {
