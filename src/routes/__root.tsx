@@ -48,7 +48,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Toaster />
         <ScrollRestoration />
         <Scripts />
-        <TanStackRouterDevtools position="bottom-right" />
+        {process.env.NODE_ENV === "development" && <TanStackRouterDevtools position="bottom-right" />}
       </Body>
     </Html>
   )
