@@ -92,7 +92,7 @@ function Home() {
             ].map((v, index) => (
               <Card key={index}>
                 <CardContent className='p-3'>
-                  <p className='text-sm md:text-[12px] leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left'>{v}</p>
+                  <p className='text-sm md:text-[10px] leading-relaxed font-sans font-light lg:text-[12px] tracking-tight text-left text-balance'>{v}</p>
                 </CardContent>
               </Card>
             ))
