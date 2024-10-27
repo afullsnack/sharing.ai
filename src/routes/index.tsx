@@ -91,7 +91,7 @@ function Home() {
               'How can I create engaging and lead generating links for my business'
             ].map((v, index) => (
               <Card key={index}>
-                <CardContent className='p-3'>
+                <CardContent className='p-3 rounded-md'>
                   <p className='text-sm md:text-[10px] leading-relaxed font-sans font-light lg:text-[12px] tracking-tight text-left text-balance'>{v}</p>
                 </CardContent>
               </Card>
