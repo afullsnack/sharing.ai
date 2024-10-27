@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
-import { ImageIcon, PaperclipIcon, SendIcon } from "lucide-react"
+import { ImageIcon, Info, PaperclipIcon, SendIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useObservable, observer, useObserve } from "@legendapp/state/react"
 
@@ -64,12 +64,8 @@ function PromptForm() {
                   <div className="flex justify-between items-center items-center justify-between p-2">
                     <div className="space-x-2 pointer-events-auto">
                       <Button type="button" variant="outline" onClick={() => { }}>
-                        <PaperclipIcon className="w-4 h-4" />
-                        Create from attachment
-                      </Button>
-                      <Button type="button" variant="outline" onClick={() => { }}>
                         <ImageIcon className="w-4 h-4" />
-                        Image
+                        Upload images
                       </Button>
                     </div>
                     <Button
@@ -82,8 +78,9 @@ function PromptForm() {
                   </div>
                 </div>
               </FormControl>
-              <FormDescription>
-                Generated responses might be incorrect or unrelable, please use with discretion
+              <FormDescription className="flex items-center justify-start gap-1 px-2">
+                <Info className="size-3 text-orange-600" />
+                Generated responses might be incorrect or unrelatable, please use with discretion
               </FormDescription>
               <FormMessage />
             </FormItem>
