@@ -8,7 +8,6 @@ import appCss from "@/styles/globals.css?url"
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { Toaster } from '@/components/ui/toaster' 
 import { NotFound } from '@/components/not-found'
-import Footer from '@/components/footer'
 
 export const Route = createRootRoute({
   meta: () => [
@@ -46,7 +45,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </Head>
       <Body>
         {children}
-        <Footer />
         <Toaster />
         <ScrollRestoration />
         <Scripts />

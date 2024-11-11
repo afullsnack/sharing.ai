@@ -1,15 +1,14 @@
-import { Container, Main, Section } from "./craft";
+import { Link } from "@tanstack/react-router";
+import { Container, Section } from "./craft";
 
 function Footer() {
   return (
-    <Main>
-      <Section className="w-full !p-0 border">
-        <Container className="!p-0 py-3 w-full">
-          <h1>Footer for mankind</h1>
-        </Container>
-      </Section>
-    </Main>
-  )
+    <Section className="w-full !p-0 border">
+      <Container className="!p-0 py-5 w-full lg:max-w-3xl">
+        <p className="text-muted-foreground">@<a href="https://afullsnack.dev" target="_blank">afullsnack</a>{" "}All rights reserved. 2024-present</p>
+      </Container>
+    </Section>
+  );
 }
 
 export default Footer;
