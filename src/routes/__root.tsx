@@ -25,6 +25,24 @@ export const Route = createRootRoute({
   links: () => [
     { rel: 'stylesheet', href: appCss }
   ],
+  scripts: () => [
+    {
+      src: 'https://openpanel.dev/op1.js',
+      async: true,
+      defer: true,
+    },
+    {
+      children: `
+      window.op = window.op||function(...args){(window.op.q=window.op.q||[]).push(args);};
+      window.op('init', {
+        clientId: 'a784a560-6265-47cc-8543-bcf9552a42bb',
+        trackScreenViews: true,
+        trackOutgoingLinks: true,
+        trackAttributes: true,
+      });
+      `,
+    },
+  ],
   component: RootComponent,
   notFoundComponent: NotFound
 })
