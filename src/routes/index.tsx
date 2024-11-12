@@ -1,9 +1,9 @@
 // app/routes/index.tsx
-import * as fs from 'fs'
+// import * as fs from 'fs'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 import { Button } from '@/components/ui/button'
-import { Container, Main, Section } from '@/components/craft'
+import { Container, Section } from '@/components/craft'
 // import { observable } from "@legendapp/state"
 import { useObservable, observer, useObserve } from "@legendapp/state/react"
 import { Card, CardContent } from '@/components/ui/card'
@@ -11,40 +11,41 @@ import { BrainCircuit, RefreshCcw } from 'lucide-react'
 import PromptForm from '@/components/forms/prompt'
 import { WobbleCard } from '@/components/ui/wobble-card'
 import LandingLayout from '@/components/landing-layout'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
-const filePath = 'count.txt'
+// const filePath = 'count.txt'
 
-async function readCount() {
+// async function readCount() {
 
-  const count = await fs.promises.readFile(filePath, 'utf-8').catch((reason) => {
-    console.log(reason, ":::catch reason")
-    return '0'
-  });
-  console.log(count, ":::server state")
-  return parseInt(
-    count
-  )
-}
+//   const count = await fs.promises.readFile(filePath, 'utf-8').catch((reason) => {
+//     console.log(reason, ":::catch reason")
+//     return '0'
+//   });
+//   console.log(count, ":::server state")
+//   return parseInt(
+//     count
+//   )
+// }
 
-export const getCount = createServerFn('GET', (_, { request }) => {
-  "use server"
+// export const getCount = createServerFn('GET', (_, { request }) => {
+//   "use server"
 
-  const forwardedFor = request.headers.get('X-Forwarded-For');
+//   const forwardedFor = request.headers.get('X-Forwarded-For');
 
-  if (forwardedFor && typeof forwardedFor === 'string') {
-    console.log(forwardedFor, ":::user IP")
-    console.log(forwardedFor.split(',')[0].trim(), ":::trimed IP")
-  }
+//   if (forwardedFor && typeof forwardedFor === 'string') {
+//     console.log(forwardedFor, ":::user IP")
+//     console.log(forwardedFor.split(',')[0].trim(), ":::trimed IP")
+//   }
 
-  return readCount()
-})
+//   return readCount()
+// })
 
-const updateCount = createServerFn('POST', async (addBy: number) => {
-  "use server"
+// const updateCount = createServerFn('POST', async (addBy: number) => {
+//   "use server"
 
-  const count = await readCount()
-  await fs.promises.writeFile(filePath, (count + addBy).toString())
-})
+//   const count = await readCount()
+//   await fs.promises.writeFile(filePath, (count + addBy).toString())
+// })
 
 export const Route = createFileRoute('/')({
   component: observer(Home),
@@ -55,7 +56,7 @@ export const Route = createFileRoute('/')({
   onError(error) {
     console.log(error, ":::error_onError")
   },
-  loader: async () => await getCount(),
+  // loader: async () => await getCount(),
 })
 
 
@@ -67,13 +68,13 @@ export const Route = createFileRoute('/')({
 
 
 function Home() {
-  const router = useRouter()
-  const state = Route.useLoaderData()
-  const count = useObservable(state ?? 0)
+  // const router = useRouter()
+  // const state = Route.useLoaderData()
+  // const count = useObservable(state ?? 0)
 
-  useObserve(count, () => {
-    console.log(count.get(), ":::count updated")
-  })
+  // useObserve(count, () => {
+  //   console.log(count.get(), ":::count updated")
+  // })
 
   return (
     <LandingLayout>
@@ -84,22 +85,35 @@ function Home() {
           </h1>
           <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
         </Container>
-        <Container className='grid grid-cols-4 gap-3 !py-2'>
-          {
-            [
-              'Generate images and links for a sneaker shop',
-              'Suggest captions for a home made chef recipe business',
-              'Create a schedule for posting product links to whatsapp, twitter and instagram',
-              'How can I create engaging and lead generating links for my business'
-            ].map((v, index) => (
-              <Card key={index}>
-                <CardContent className='p-3 rounded-md'>
-                  <p className='text-sm md:text-[10px] leading-relaxed font-sans font-light lg:text-[12px] tracking-tight text-left text-balance'>{v}</p>
-                </CardContent>
-              </Card>
-            ))
-          }
-          <div className='col-span-4'>
+        <Container className='!py-2'>
+          <Carousel opts={{
+            align: "start",
+            loop: true,
+          }}>
+            <CarouselContent>
+              {
+                [
+                  'Generate images and links for a sneaker shop',
+                  'Suggest captions for a home made chef recipe business',
+                  'Create a schedule for posting product links to whatsapp, twitter and instagram',
+                  'How can I create engaging and lead generating links for my business'
+                ].map((v, index) => (
+                  <CarouselItem key={index} className="basis-1/2 lg:basis-1/3 h-full">
+                    <Card key={index} className='h-full'>
+                      <CardContent className='md:p-3 p-2 px-4 rounded-md h-full aspect-video'>
+                        <p className='text-sm md:text-[12px] leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left text-balance'>{v}</p>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))
+              }
+            </CarouselContent>
+            <CarouselPrevious className='hidden md:flex' />
+            <CarouselNext className='hidden md:flex' />
+          </Carousel>
+        </Container>
+        <Container className='!py-2'>
+          <div className=''>
             <Button className='flex gap-2 items-center' variant={"link"}>
               <RefreshCcw className='size-6 text-black' />
               Refresh Prompts
@@ -112,7 +126,7 @@ function Home() {
       </Section>
 
       <Section>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
+        <Container className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full md:px-0">
           <WobbleCard
             containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
             className=""
@@ -156,10 +170,10 @@ function Home() {
               width={500}
               height={500}
               alt="analytics tracking image"
-              className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl"
+              className="absolute -right-[30%] md:-right-[40%] lg:-right-[20%] -bottom-[40%] object-contain rounded-2xl"
             />
           </WobbleCard>
-        </div>
+        </Container>
       </Section>
     </LandingLayout>
   )
