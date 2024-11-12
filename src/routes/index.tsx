@@ -7,8 +7,10 @@ import { Container, Main, Section } from '@/components/craft'
 // import { observable } from "@legendapp/state"
 import { useObservable, observer, useObserve } from "@legendapp/state/react"
 import { Card, CardContent } from '@/components/ui/card'
-import { RefreshCcw } from 'lucide-react'
+import { BrainCircuit, RefreshCcw } from 'lucide-react'
 import PromptForm from '@/components/forms/prompt'
+import { WobbleCard } from '@/components/ui/wobble-card'
+import LandingLayout from '@/components/landing-layout'
 
 const filePath = 'count.txt'
 
@@ -74,7 +76,7 @@ function Home() {
   })
 
   return (
-    <Main className='lg:max-w-3xl grid place-items-center items-center mx-auto !my-0'>
+    <LandingLayout>
       <Section>
         <Container className='grid gap-2 !py-2'>
           <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left dark:text-white font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
@@ -91,8 +93,8 @@ function Home() {
               'How can I create engaging and lead generating links for my business'
             ].map((v, index) => (
               <Card key={index}>
-                <CardContent className='p-3'>
-                  <p className='text-sm md:text-[12px] leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left'>{v}</p>
+                <CardContent className='p-3 rounded-md'>
+                  <p className='text-sm md:text-[10px] leading-relaxed font-sans font-light lg:text-[12px] tracking-tight text-left text-balance'>{v}</p>
                 </CardContent>
               </Card>
             ))
@@ -108,6 +110,57 @@ function Home() {
           <PromptForm />
         </Container>
       </Section>
-    </Main>
+
+      <Section>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
+          <WobbleCard
+            containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
+            className=""
+          >
+            <div className="max-w-xs">
+              <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
+                Generative AI powered captions.
+              </h2>
+              <p className="mt-4 text-left  text-base/6 text-neutral-200">
+                Leverage generative AI to create engaging captions and SEO optimizations for your links.
+              </p>
+            </div>
+            <BrainCircuit className='size-36 text-white absolute z-50 grayscale filter  lg:-right-[5%] bottom-10' />
+            {/*<img
+              src="/linear.webp"
+              width={500}
+              height={500}
+              alt="linear demo image"
+              className="absolute -right-4 lg:-right-[40%] grayscale filter -bottom-10 object-contain rounded-2xl"
+            />*/}
+          </WobbleCard>
+          <WobbleCard containerClassName="col-span-1 min-h-[300px]">
+            <h2 className="max-w-80  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
+              No more broken links.
+            </h2>
+            <p className="mt-4 max-w-[26rem] text-left  text-base/6 text-neutral-200">
+              Stop loosing leads and prospects over dead or broken links.
+            </p>
+          </WobbleCard>
+          <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]">
+            <div className="max-w-sm">
+              <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
+                Real time, useful insights into user behaviour
+              </h2>
+              <p className="mt-4 max-w-[26rem] text-left  text-base/6 text-neutral-200">
+                Track real time metrics and click through rate, as users interact with your links. Get useful overview of all data.
+              </p>
+            </div>
+            <img
+              src="/analytics.png"
+              width={500}
+              height={500}
+              alt="analytics tracking image"
+              className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl"
+            />
+          </WobbleCard>
+        </div>
+      </Section>
+    </LandingLayout>
   )
 }

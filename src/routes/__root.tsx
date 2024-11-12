@@ -7,6 +7,7 @@ import * as React from "react"
 import appCss from "@/styles/globals.css?url"
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { Toaster } from '@/components/ui/toaster' 
+import { NotFound } from '@/components/not-found'
 
 export const Route = createRootRoute({
   meta: () => [
@@ -18,14 +19,14 @@ export const Route = createRootRoute({
       content: 'width=device-width, initial-scale=1',
     },
     {
-      title: 'Test application',
+      title: 'Spindle - Engaging links creation and management with AI',
     },
   ],
   links: () => [
     { rel: 'stylesheet', href: appCss }
   ],
   component: RootComponent,
-  notFoundComponent: () => (<div>Not found</div>)
+  notFoundComponent: NotFound
 })
 
 function RootComponent() {
@@ -47,7 +48,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Toaster />
         <ScrollRestoration />
         <Scripts />
-        <TanStackRouterDevtools position="bottom-right" />
+        {process.env.NODE_ENV === "development" && <TanStackRouterDevtools position="bottom-right" />}
       </Body>
     </Html>
   )
