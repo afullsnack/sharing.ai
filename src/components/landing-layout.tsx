@@ -1,4 +1,4 @@
-import { Main, Section, Container } from "./craft";
+import { Main } from "./craft";
 import Footer from '@/components/footer'
 
 
