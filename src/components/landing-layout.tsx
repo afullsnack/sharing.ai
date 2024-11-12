@@ -10,10 +10,10 @@ export default function LandingLayout({
 }: ILandingLayout) {
 
   return (
-    <Main>
-      <Main className='lg:max-w-3xl grid place-items-center items-center mx-auto !my-0'>
-        {children}
-      </Main>
+    <Main className="w-full place-items-center items-center">
+      <div className='lg:max-w-3xl container'>
+      {children}
+      </div>
       <Footer />
     </Main>
   )
