@@ -85,7 +85,7 @@ function Home() {
           </h1>
           <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
         </Container>
-        <Container className='grid w-full'>
+        <Container className='grid w-full !py-2'>
           <Carousel opts={{
             align: "start",
             loop: true,
@@ -100,8 +100,8 @@ function Home() {
                 ].map((v, index) => (
                   <CarouselItem key={index} className="basis-1/2 lg:basis-1/3 h-full">
                     <Card key={index} className='h-full'>
-                      <CardContent className='p-3 rounded-md h-full'>
-                        <p className='text-sm md:text-[10px] leading-relaxed font-sans font-light lg:text-[12px] tracking-tight text-left text-balance'>{v}</p>
+                      <CardContent className='md:p-3 p-2 px-4 rounded-md h-full aspect-video'>
+                        <p className='text-sm md:text-[12px] leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left text-balance'>{v}</p>
                       </CardContent>
                     </Card>
                   </CarouselItem>
@@ -112,14 +112,13 @@ function Home() {
             <CarouselNext className='hidden md:flex' />
           </Carousel>
         </Container>
-        <Container>
+        <Container className='!py-2'>
           <div className=''>
             <Button className='flex gap-2 items-center' variant={"link"}>
               <RefreshCcw className='size-6 text-black' />
               Refresh Prompts
             </Button>
           </div>
-
         </Container>
         <Container className=''>
           <PromptForm />
@@ -127,7 +126,7 @@ function Home() {
       </Section>
 
       <Section>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full md:px-0 px-2">
+        <Container className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full md:px-0">
           <WobbleCard
             containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
             className=""
@@ -174,7 +173,7 @@ function Home() {
               className="absolute -right-[30%] md:-right-[40%] lg:-right-[20%] -bottom-[40%] object-contain rounded-2xl"
             />
           </WobbleCard>
-        </div>
+        </Container>
       </Section>
     </LandingLayout>
   )
