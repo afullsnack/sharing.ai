@@ -12,6 +12,7 @@ import PromptForm from '@/components/forms/prompt'
 import { WobbleCard } from '@/components/ui/wobble-card'
 import LandingLayout from '@/components/landing-layout'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import WaitlistDialog from '@/components/WaitlistDialog'
 
 // const filePath = 'count.txt'
 
@@ -70,11 +71,15 @@ export const Route = createFileRoute('/')({
 function Home() {
   // const router = useRouter()
   // const state = Route.useLoaderData()
-  // const count = useObservable(state ?? 0)
+  const openWaitlistDialog = useObservable<boolean>(false)
 
   // useObserve(count, () => {
   //   console.log(count.get(), ":::count updated")
   // })
+
+  const handlePromptSubmit = () => {
+    openWaitlistDialog.set(true);
+  }
 
   return (
     <LandingLayout>
@@ -121,7 +126,15 @@ function Home() {
           </div>
         </Container>
         <Container>
-          <PromptForm />
+          <PromptForm onPromptSubmit={handlePromptSubmit} />
+          <WaitlistDialog
+            open={openWaitlistDialog.get()}
+            setIsOpen={(open) => openWaitlistDialog.set(open)}
+            handleWaitlistSubmit={async () => {
+              openWaitlistDialog.set(false);
+              // TODO: call join-waitlist usecase to add visitor email to waitlist
+            }}
+          />
         </Container>
       </Section>
 
@@ -129,7 +142,6 @@ function Home() {
         <Container className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full md:px-0">
           <WobbleCard
             containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
-            className=""
           >
             <div className="max-w-xs">
               <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
