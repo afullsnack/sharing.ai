@@ -140,13 +140,6 @@ function Home() {
               </p>
             </div>
             <BrainCircuit className='size-36 text-white absolute z-50 grayscale filter  lg:-right-[5%] bottom-10' />
-            {/*<img
-              src="/linear.webp"
-              width={500}
-              height={500}
-              alt="linear demo image"
-              className="absolute -right-4 lg:-right-[40%] grayscale filter -bottom-10 object-contain rounded-2xl"
-            />*/}
           </WobbleCard>
           <WobbleCard containerClassName="col-span-1 min-h-[300px]">
             <h2 className="max-w-80  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
