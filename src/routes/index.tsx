@@ -120,7 +120,7 @@ function Home() {
             </Button>
           </div>
         </Container>
-        <Container className=''>
+        <Container>
           <PromptForm />
         </Container>
       </Section>
