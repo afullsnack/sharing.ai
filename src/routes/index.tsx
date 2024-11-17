@@ -78,8 +78,8 @@ function Home() {
 
   return (
     <LandingLayout>
-      <Section>
-        <Container className='grid gap-2 !py-2'>
+      <Section className='!p-0'>
+        <Container className='grid gap-2'>
           <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left dark:text-white font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
             Create shareable, lead generating links with AI.
           </h1>
@@ -125,7 +125,7 @@ function Home() {
         </Container>
       </Section>
 
-      <Section>
+      <Section className='pt-1'>
         <Container className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full md:px-0">
           <WobbleCard
             containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
