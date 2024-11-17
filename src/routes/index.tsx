@@ -12,6 +12,8 @@ import PromptForm from '@/components/forms/prompt'
 import { WobbleCard } from '@/components/ui/wobble-card'
 import LandingLayout from '@/components/landing-layout'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import WaitlistDialog from '@/components/WaitlistDialog'
+import { toast } from '@/hooks/use-toast'
 
 // const filePath = 'count.txt'
 
@@ -70,16 +72,16 @@ export const Route = createFileRoute('/')({
 function Home() {
   // const router = useRouter()
   // const state = Route.useLoaderData()
-  // const count = useObservable(state ?? 0)
+  const openWaitlistDialog = useObservable<boolean>(false)
 
-  // useObserve(count, () => {
-  //   console.log(count.get(), ":::count updated")
-  // })
+  const handlePromptSubmit = () => {
+    openWaitlistDialog.set(true);
+  }
 
   return (
     <LandingLayout>
-      <Section>
-        <Container className='grid gap-2 !py-2'>
+      <Section className='!p-0'>
+        <Container className='grid gap-2'>
           <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left dark:text-white font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
             Create shareable, lead generating links with AI.
           </h1>
@@ -120,16 +122,26 @@ function Home() {
             </Button>
           </div>
         </Container>
-        <Container className=''>
-          <PromptForm />
+        <Container>
+          <PromptForm onPromptSubmit={handlePromptSubmit} />
+          <WaitlistDialog
+            open={openWaitlistDialog.get()}
+            setIsOpen={(open) => openWaitlistDialog.set(open)}
+            handleWaitlistSubmit={async () => {
+              openWaitlistDialog.set(false);
+              toast({
+                title: "Added to waitlist",
+                description: "You have been subscribed to our product waitlist."
+              });
+            }}
+          />
         </Container>
       </Section>
 
-      <Section>
+      <Section className='pt-1'>
         <Container className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full md:px-0">
           <WobbleCard
             containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
-            className=""
           >
             <div className="max-w-xs">
               <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
@@ -140,13 +152,6 @@ function Home() {
               </p>
             </div>
             <BrainCircuit className='size-36 text-white absolute z-50 grayscale filter  lg:-right-[5%] bottom-10' />
-            {/*<img
-              src="/linear.webp"
-              width={500}
-              height={500}
-              alt="linear demo image"
-              className="absolute -right-4 lg:-right-[40%] grayscale filter -bottom-10 object-contain rounded-2xl"
-            />*/}
           </WobbleCard>
           <WobbleCard containerClassName="col-span-1 min-h-[300px]">
             <h2 className="max-w-80  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">

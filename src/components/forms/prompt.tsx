@@ -30,20 +30,26 @@ const FormSchema = z.object({
     }),
 })
 
-function PromptForm() {
+interface IPromptForm {
+  onPromptSubmit: () => void;
+}
+function PromptForm({
+  onPromptSubmit
+}: IPromptForm) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    onPromptSubmit();
+    // toast({
+    //   title: "You submitted the following values:",
+    //   description: (
+    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+    //     </pre>
+    //   ),
+    // })
   }
 
   return (
@@ -63,7 +69,9 @@ function PromptForm() {
                   />
                   <div className="flex justify-between items-center items-center justify-between p-2">
                     <div className="space-x-2 pointer-events-auto">
-                      <Button type="button" variant="outline" onClick={() => { }}>
+                      <Button type="button" variant="outline" onClick={() => {
+                        onPromptSubmit();
+                      }}>
                         <ImageIcon className="w-4 h-4" />
                         Upload images
                       </Button>
@@ -71,7 +79,7 @@ function PromptForm() {
                     <Button
                       type="submit"
                       disabled={!(field.value ?? '').trim()}
-                      >
+                    >
                       <SendIcon className="w-4 h-4 mr-" />
                       Submit
                     </Button>
