@@ -13,6 +13,7 @@ import { WobbleCard } from '@/components/ui/wobble-card'
 import LandingLayout from '@/components/landing-layout'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import WaitlistDialog from '@/components/WaitlistDialog'
+import { toast } from '@/hooks/use-toast'
 
 // const filePath = 'count.txt'
 
@@ -73,10 +74,6 @@ function Home() {
   // const state = Route.useLoaderData()
   const openWaitlistDialog = useObservable<boolean>(false)
 
-  // useObserve(count, () => {
-  //   console.log(count.get(), ":::count updated")
-  // })
-
   const handlePromptSubmit = () => {
     openWaitlistDialog.set(true);
   }
@@ -132,7 +129,10 @@ function Home() {
             setIsOpen={(open) => openWaitlistDialog.set(open)}
             handleWaitlistSubmit={async () => {
               openWaitlistDialog.set(false);
-              // TODO: call join-waitlist usecase to add visitor email to waitlist
+              toast({
+                title: "Added to waitlist",
+                description: "You have been subscribed to our product waitlist."
+              });
             }}
           />
         </Container>
