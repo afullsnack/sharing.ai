@@ -1,5 +1,6 @@
 import { Main } from "./craft";
 import Footer from '@/components/footer'
+import Header from "@/components/header";
 
 
 type ILandingLayout = {
@@ -11,8 +12,9 @@ export default function LandingLayout({
 
   return (
     <Main className="w-full place-items-center items-center">
+      <Header />
       <div className='lg:max-w-3xl container'>
-      {children}
+        {children}
       </div>
       <Footer />
     </Main>

@@ -83,14 +83,14 @@ function WaitlistDialog({
                 </FormItem>
               )}
             />
-            <DialogFooter className="w-full mt-4 flex gap-4 items-center justify-center">
+            <DialogFooter className="w-full mt-4 flex-col md:flex gap-4 items-center justify-center">
               <DialogClose asChild>
-                <Button variant={"outline"} className="flex-1" disabled={form.formState.isSubmitting}>Cancel</Button>
+                <Button variant={"outline"} className="md:flex-1 w-full" disabled={form.formState.isSubmitting}>Cancel</Button>
               </DialogClose>
               <Button
                 type="submit"
                 disabled={!(form.getValues("email") ?? '').trim() || form.formState.isSubmitting}
-                className="flex-1"
+                className="md:flex-1 w-full"
               >
                 {form.formState.isSubmitting && <LoaderCircle
                   className="-ms-1 me-2 animate-spin"

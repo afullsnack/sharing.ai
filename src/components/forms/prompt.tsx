@@ -32,12 +32,17 @@ const FormSchema = z.object({
 
 interface IPromptForm {
   onPromptSubmit: () => void;
+  promptValue?: string;
 }
 function PromptForm({
-  onPromptSubmit
+  onPromptSubmit,
+  promptValue
 }: IPromptForm) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      prompt: promptValue ?? "",
+    }
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -64,7 +69,7 @@ function PromptForm({
                 <div className={cn("group grid border rounded-lg overflow-hidden transition-shadow duration-200 focus-within:shadow-md focus-within:ring-2 focus-within:ring-primary")}>
                   <Textarea
                     placeholder="Ask for a suggestion or to generate images"
-                    className="min-h-[100px] resize-none bg-white border-none ring-0 outline-0 focus-visible:ring-0 resize-none"
+                    className="min-h-[100px] resize-none bg-white dark:bg-background border-none ring-0 outline-0 focus-visible:ring-0 resize-none"
                     {...field}
                   />
                   <div className="flex justify-between items-center items-center justify-between p-2">
