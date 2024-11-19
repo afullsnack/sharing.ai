@@ -24,7 +24,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "vite-ui-theme",
+  storageKey = "spndle-ui-theme",
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
@@ -33,7 +33,7 @@ export function ThemeProvider({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setTheme(() => (localStorage.getItem(storageKey) as Theme));
+      setTheme(() => (localStorage.getItem(storageKey) as Theme) ?? defaultTheme);
     }
   }, []);
 
