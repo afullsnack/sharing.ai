@@ -1,19 +1,21 @@
 // app/routes/index.tsx
 // import * as fs from 'fs'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/start'
+// import { createServerFn } from '@tanstack/start'
 import { Button } from '@/components/ui/button'
 import { Container, Section } from '@/components/craft'
 // import { observable } from "@legendapp/state"
-import { useObservable, observer, useObserve } from "@legendapp/state/react"
+import { useObservable, observer } from "@legendapp/state/react"
 import { Card, CardContent } from '@/components/ui/card'
-import { BrainCircuit, RefreshCcw } from 'lucide-react'
+import { BrainCircuit, RefreshCcw, Sparkle } from 'lucide-react'
 import PromptForm from '@/components/forms/prompt'
 import { WobbleCard } from '@/components/ui/wobble-card'
 import LandingLayout from '@/components/landing-layout'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import WaitlistDialog from '@/components/WaitlistDialog'
 import { toast } from '@/hooks/use-toast'
+import { CustomEvents, subscribe, unsubscribe } from '@/lib/events'
+import { useEffect } from 'react'
 
 // const filePath = 'count.txt'
 
@@ -73,16 +75,25 @@ function Home() {
   // const router = useRouter()
   // const state = Route.useLoaderData()
   const openWaitlistDialog = useObservable<boolean>(false)
+  // const suggestedPrompt = useObservable<string>();
 
   const handlePromptSubmit = () => {
     openWaitlistDialog.set(true);
   }
 
+  useEffect(() => {
+    subscribe(CustomEvents.ShowWaitlistDialog, () => openWaitlistDialog.set(true));
+
+    return () => {
+      unsubscribe(CustomEvents.ShowWaitlistDialog, () => openWaitlistDialog.set(false));
+    }
+  }, [])
+
   return (
     <LandingLayout>
       <Section className='!p-0'>
         <Container className='grid gap-2'>
-          <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left dark:text-white font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
+          <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
             Create shareable, lead generating links with AI.
           </h1>
           <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
@@ -100,10 +111,11 @@ function Home() {
                   'Create a schedule for posting product links to whatsapp, twitter and instagram',
                   'How can I create engaging and lead generating links for my business'
                 ].map((v, index) => (
-                  <CarouselItem key={index} className="basis-1/2 lg:basis-1/3 h-full">
-                    <Card key={index} className='h-full'>
-                      <CardContent className='md:p-3 p-2 px-4 rounded-md h-full aspect-video'>
-                        <p className='text-sm md:text-[12px] leading-relaxed font-sans font-light lg:text-[14px] tracking-tight text-left text-balance'>{v}</p>
+                  <CarouselItem key={index} className="basis-1/2 lg:basis-1/3 h-full hover:cursor-pointer">
+                    <Card key={index} className='h-full dark:bg-background'>
+                      <CardContent className='md:p-3 p-2 px-4 lg:px-6 rounded-md h-full grid items-start justify-between aspect-video'>
+                        <Sparkle className='size-3' />
+                        <p className='text-sm md:text-[10px] leading-relaxed font-sans font-light lg:text-[12px] tracking-tight text-left text-balance'>{v}</p>
                       </CardContent>
                     </Card>
                   </CarouselItem>
@@ -117,7 +129,7 @@ function Home() {
         <Container className='!py-2'>
           <div className=''>
             <Button className='flex gap-2 items-center' variant={"link"}>
-              <RefreshCcw className='size-6 text-black' />
+              <RefreshCcw className='size-6 text-black dark:text-white' />
               Refresh Prompts
             </Button>
           </div>
@@ -138,7 +150,7 @@ function Home() {
         </Container>
       </Section>
 
-      <Section className='pt-1'>
+      <Section className='mt-6 lg:mt-1'>
         <Container className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full md:px-0">
           <WobbleCard
             containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"

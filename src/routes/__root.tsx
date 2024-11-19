@@ -6,8 +6,9 @@ import * as React from "react"
 // @ts-ignore
 import appCss from "@/styles/globals.css?url"
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
-import { Toaster } from '@/components/ui/toaster' 
+import { Toaster } from '@/components/ui/toaster'
 import { NotFound } from '@/components/not-found'
+import { ThemeProvider } from '@/components/theme-provider'
 
 export const Route = createRootRoute({
   meta: () => [
@@ -62,8 +63,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </Head>
       <Body>
-        {children}
-        <Toaster />
+        <ThemeProvider defaultTheme='dark' storageKey='spndle-ui-theme'>
+          {children}
+          <Toaster />
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <TanStackRouterDevtools position="bottom-right" />}
