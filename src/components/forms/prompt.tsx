@@ -1,8 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
-import { toast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -10,14 +8,13 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  // FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
-import { ImageIcon, Info, PaperclipIcon, SendIcon } from "lucide-react"
+import { ImageIcon, Info, SendIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { useObservable, observer, useObserve } from "@legendapp/state/react"
-
+import { op } from "@/lib/openpanel"
 
 const FormSchema = z.object({
   prompt: z
@@ -47,6 +44,7 @@ function PromptForm({
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     onPromptSubmit();
+    op.track('prompt_submit_btn_click');
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
@@ -76,6 +74,7 @@ function PromptForm({
                     <div className="space-x-2 pointer-events-auto">
                       <Button type="button" variant="outline" onClick={() => {
                         onPromptSubmit();
+                        op.track('upload_img_btn_click');
                       }}>
                         <ImageIcon className="w-4 h-4" />
                         Upload images

@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { CustomEvents, publish } from "@/lib/events";
 import { Memo } from "@legendapp/state/react";
+import { op } from "@/lib/openpanel";
 
 function Header() {
   return (
@@ -25,7 +26,10 @@ function Header() {
           </div>
         </Link>
         <div className="flex items-center gap-2">
-          <Button onClick={() => publish(CustomEvents.ShowWaitlistDialog)}>Join waitlist</Button>
+          <Button onClick={() => {
+            publish(CustomEvents.ShowWaitlistDialog);
+            op.track('join_waitlist_btn_clicked');
+          }}>Join waitlist</Button>
           <ThemeToggle />
         </div>
       </Container>
