@@ -1,7 +1,7 @@
 {
   "name": "wa_sharing",
   "version": "1.0.0",
-  "description": "Sharable shortlinks to encourage engagements and generate leads",
+  "description": "AI infused shareable links for any social or online engagement action.",
   "type": "module",
   "scripts": {
     "dev": "vinxi dev",
