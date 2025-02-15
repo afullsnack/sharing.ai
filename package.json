@@ -12,6 +12,9 @@
   "author": "Miracle Friday <miraclef60@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@effect/platform": "^0.77.1",
+    "@effect/platform-node": "^0.73.1",
+    "@effect/schema": "^0.75.5",
     "@hookform/resolvers": "^3.9.0",
     "@legendapp/state": "3.0.0-beta.12",
     "@openpanel/sdk": "^1.0.0",
@@ -30,6 +33,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "effect": "^3.13.1",
     "embla-carousel-react": "^8.3.1",
     "framer-motion": "^11.11.10",
     "lucide-react": "^0.453.0",
