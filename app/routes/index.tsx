@@ -17,40 +17,6 @@ import { toast } from '@/hooks/use-toast'
 import { CustomEvents, subscribe, unsubscribe } from '@/lib/events'
 import { useEffect } from 'react'
 
-// const filePath = 'count.txt'
-
-// async function readCount() {
-
-//   const count = await fs.promises.readFile(filePath, 'utf-8').catch((reason) => {
-//     console.log(reason, ":::catch reason")
-//     return '0'
-//   });
-//   console.log(count, ":::server state")
-//   return parseInt(
-//     count
-//   )
-// }
-
-// export const getCount = createServerFn('GET', (_, { request }) => {
-//   "use server"
-
-//   const forwardedFor = request.headers.get('X-Forwarded-For');
-
-//   if (forwardedFor && typeof forwardedFor === 'string') {
-//     console.log(forwardedFor, ":::user IP")
-//     console.log(forwardedFor.split(',')[0].trim(), ":::trimed IP")
-//   }
-
-//   return readCount()
-// })
-
-// const updateCount = createServerFn('POST', async (addBy: number) => {
-//   "use server"
-
-//   const count = await readCount()
-//   await fs.promises.writeFile(filePath, (count + addBy).toString())
-// })
-
 export const Route = createFileRoute('/')({
   component: observer(Home),
   errorComponent: () => (<h1>An error occured, contact support</h1>),
@@ -65,7 +31,7 @@ export const Route = createFileRoute('/')({
 
 
 /**
-* Track login state of user/gues
+* Track login state of user/guest
 * Render landing page
 * Start generation flow based on mode
 */
@@ -106,10 +72,10 @@ function Home() {
             <CarouselContent>
               {
                 [
-                  'Generate images and links for a sneaker shop',
-                  'Suggest captions for a home made chef recipe business',
-                  'Create a schedule for posting product links to whatsapp, twitter and instagram',
-                  'How can I create engaging and lead generating links for my business'
+                  'Create a product link from uploaded image',
+                  'Create a link to collect payments, crypto or fiat',
+                  'Create a form to collect product engagement data for a tshirt business',
+                  'Create a simple page with social media links'
                 ].map((v, index) => (
                   <CarouselItem key={index} className="basis-1/2 lg:basis-1/3 h-full hover:cursor-pointer">
                     <Card key={index} className='h-full dark:bg-background'>
@@ -126,14 +92,14 @@ function Home() {
             <CarouselNext className='hidden md:flex' />
           </Carousel>
         </Container>
-        <Container className='!py-2'>
+        {/*<Container className='!py-2'>
           <div className=''>
             <Button className='flex gap-2 items-center' variant={"link"}>
               <RefreshCcw className='size-6 text-black dark:text-white' />
               Refresh Prompts
             </Button>
           </div>
-        </Container>
+        </Container>*/}
         <Container>
           <PromptForm onPromptSubmit={handlePromptSubmit} />
           <WaitlistDialog
@@ -178,7 +144,7 @@ function Home() {
               <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
                 Real time, useful insights into user behaviour
               </h2>
-              <p className="mt-4 max-w-[26rem] text-left  text-base/6 text-neutral-200">
+              <p className="mt-4 max-w-[24rem] text-left  text-base/6 text-neutral-200">
                 Track real time metrics and click through rate, as users interact with your links. Get useful overview of all data.
               </p>
             </div>
@@ -187,7 +153,7 @@ function Home() {
               width={500}
               height={500}
               alt="analytics tracking image"
-              className="absolute -right-[30%] md:-right-[40%] lg:-right-[20%] -bottom-[40%] object-contain rounded-2xl"
+              className="absolute -right-[30%] md:-right-[40%] lg:-right-[28%] -bottom-[40%] object-contain rounded-2xl"
             />
           </WobbleCard>
         </Container>

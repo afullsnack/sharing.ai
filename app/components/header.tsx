@@ -22,7 +22,7 @@ function Header() {
               {() => getLogo()}
               </Memo>
             </Button>
-            <span className="font-sans font-bold text-sm no-underline">Spndle</span>
+            <span className="font-sans font-bold text-sm no-underline">spndl_</span>
           </div>
         </Link>
         <div className="flex items-center gap-2">

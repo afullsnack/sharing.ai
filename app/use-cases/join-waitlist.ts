@@ -42,8 +42,9 @@ async function _joinWaitlist({email, name}: WaitlistProps): Promise<TrackRespons
 }
 
 
-export const joinWaitlist = createServerFn("POST", async ({name, email}:WaitlistProps) => {
-  "use server"
+export const joinWaitlist = createServerFn({method: "POST"})
+  .validator((data: WaitlistProps) => data)
+  .handler(async ({data: {name, email}}) => {
   await _joinWaitlist({name, email});
 });
 

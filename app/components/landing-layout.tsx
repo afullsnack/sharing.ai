@@ -13,7 +13,7 @@ export default function LandingLayout({
   return (
     <Main className="w-full place-items-center items-center">
       <Header />
-      <div className='lg:max-w-3xl container'>
+      <div className='lg:max-w-3xl min-h-screen container'>
         {children}
       </div>
       <Footer />
