@@ -11,7 +11,7 @@ type IFunctionInput = typeof FunctionInput.Type;
 
 const login = createServerFn({ method: "POST" })
   .validator(Schema.decodeSync(FunctionInput))
-  .handler(async ({data, context, method}) => {
+  .handler(async ({data, method}) => {
     return data;
   });
 
