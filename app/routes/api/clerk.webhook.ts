@@ -9,21 +9,33 @@ export const APIRoute = createAPIFileRoute('/api/clerk/webhook')({
         secretKey: process.env.CLERK_SECRET_KEY || import.meta.env.CLERK_SECRET_KEY
       });
 
+      const body = await request.json();
+      console.log(body, 'request body');
 
-      console.log(request.body, 'request body');
+      const isUserCreated = body?.data?.type === 'user.created';
+      if (isUserCreated) {
+        const userId = body?.data?.id;
+        const user = await clerkClient.users.getUser(userId)
+        console.log(user, ":::retrieved user");
 
-      // const user = clerkClient.users.getUser()
+        // TODO: send welcome email if user is new
+        return json({
+          success: true,
+          data: user
+        });
 
-      return json({
-        success: true,
-        data: {}
-      });
+      }
+        return json({
+          success: true,
+          data: null
+        });
+
 
     } catch (error: any) {
-      throw new Error('Failed to process webhook event', {cause: error})
+      throw new Error('Failed to process webhook event', { cause: error })
     }
   },
-  GET: ({request}) => {
+  GET: ({ request }) => {
     console.log(request.url, ":::Get request of webhook");
     return json({
       success: true,
