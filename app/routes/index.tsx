@@ -16,6 +16,13 @@ import WaitlistDialog from '@/components/WaitlistDialog'
 import { toast } from '@/hooks/use-toast'
 import { CustomEvents, subscribe, unsubscribe } from '@/lib/events'
 import { useEffect } from 'react'
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  SignOutButton,
+  UserButton
+} from "@clerk/tanstack-start"
 
 export const Route = createFileRoute('/')({
   component: observer(Home),
@@ -63,6 +70,15 @@ function Home() {
             Create shareable, lead generating links with AI.
           </h1>
           <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
+          <div>
+            <SignedIn>
+              {/*<SignOutButton />*/}
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+          </div>
         </Container>
         <Container className='!py-2'>
           <Carousel opts={{
