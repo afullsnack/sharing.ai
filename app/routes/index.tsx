@@ -21,7 +21,8 @@ import {
   SignedIn,
   SignedOut,
   SignOutButton,
-  UserButton
+  UserButton,
+  useSession
 } from "@clerk/tanstack-start"
 
 export const Route = createFileRoute('/')({
@@ -48,7 +49,9 @@ function Home() {
   // const router = useRouter()
   // const state = Route.useLoaderData()
   const openWaitlistDialog = useObservable<boolean>(false)
-  // const suggestedPrompt = useObservable<string>();
+  const defaultPrompt = useObservable<string>()
+  const session = useSession()
+  console.log('Session', session)
 
   const handlePromptSubmit = () => {
     openWaitlistDialog.set(true);
@@ -85,15 +88,18 @@ function Home() {
             align: "start",
             loop: true,
           }}>
-            <CarouselContent>
+            <CarouselContent className='flex items-stretch'>
               {
                 [
                   'Create a product link from uploaded image',
                   'Create a link to collect payments, crypto or fiat',
-                  'Create a form to collect product engagement data for a tshirt business',
+                  'Collect product engagement data in a form',
                   'Create a simple page with social media links'
                 ].map((v, index) => (
-                  <CarouselItem key={index} className="basis-1/2 lg:basis-1/3 h-full hover:cursor-pointer">
+                  <CarouselItem  onClick={() => {
+                    console.log('Prompt value', v, index)
+                    defaultPrompt.set(v)
+                  }} key={index} className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/3 h-full hover:cursor-pointer">
                     <Card key={index} className='h-full dark:bg-background'>
                       <CardContent className='md:p-3 p-2 px-4 lg:px-6 rounded-md h-full grid items-start justify-between aspect-video'>
                         <Sparkle className='size-3' />
@@ -117,7 +123,7 @@ function Home() {
           </div>
         </Container>*/}
         <Container>
-          <PromptForm onPromptSubmit={handlePromptSubmit} />
+          <PromptForm onPromptSubmit={handlePromptSubmit} promptValue={defaultPrompt.get()} />
           <WaitlistDialog
             open={openWaitlistDialog.get()}
             setIsOpen={(open) => openWaitlistDialog.set(open)}
