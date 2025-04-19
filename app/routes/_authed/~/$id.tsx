@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { observer } from '@legendapp/state/react'
 import LandingLayout from '@/components/landing-layout'
