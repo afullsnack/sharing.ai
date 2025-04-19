@@ -1,5 +1,5 @@
-# sharing.ai
-sharable, lead generating links with AI, to grow and drive action
+# spndl.ai
+sharable, lead generating links with AI, to grow business and drive action
 
 
 # Quick prompts
