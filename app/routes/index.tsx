@@ -70,7 +70,7 @@ function Home() {
       <Section className='!p-0'>
         <Container className='grid gap-2'>
           <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
-            Create shareable, lead generating links with AI.
+            Create shareable, lead generating short links with AI.
           </h1>
           <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
           <div>
