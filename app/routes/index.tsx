@@ -2,7 +2,6 @@
 // import * as fs from 'fs'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 // import { createServerFn } from '@tanstack/start'
-import { Button } from '@/components/ui/button'
 import { Container, Section } from '@/components/craft'
 // import { observable } from "@legendapp/state"
 import { useObservable, observer } from "@legendapp/state/react"
@@ -20,7 +19,6 @@ import {
   SignInButton,
   SignedIn,
   SignedOut,
-  SignOutButton,
   UserButton,
   useSession
 } from "@clerk/tanstack-start"
