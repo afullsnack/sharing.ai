@@ -25,7 +25,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Spndle - Engaging links creation and management with AI',
+        title: 'spndl - Engaging links with super powers',
       },
     ],
     links: [
