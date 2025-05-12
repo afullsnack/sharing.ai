@@ -12,6 +12,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { NotFound } from '@/components/not-found'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Layout } from '@/components/craft'
+import { ClerkProvider } from "@clerk/tanstack-start";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -64,18 +65,20 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <Layout>
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <ThemeProvider defaultTheme='dark' storageKey='spndle-ui-theme'>
-          {children}
-          <Toaster />
-        </ThemeProvider>
-        <Scripts />
-        { /*process.env.NODE_ENV === "development" && <TanStackRouterDevtools position="bottom-right" />*/}
-      </body>
-    </Layout>
+    <ClerkProvider>
+      <Layout>
+        <head>
+          <HeadContent />
+        </head>
+        <body>
+          <ThemeProvider defaultTheme='dark' storageKey='spndle-ui-theme'>
+            {children}
+            <Toaster />
+          </ThemeProvider>
+          <Scripts />
+          { /*process.env.NODE_ENV === "development" && <TanStackRouterDevtools position="bottom-right" />*/}
+        </body>
+      </Layout>
+    </ClerkProvider>
   )
 }

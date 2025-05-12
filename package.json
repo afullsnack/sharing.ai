@@ -12,6 +12,8 @@
   "author": "Miracle Friday <miraclef60@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@clerk/backend": "^1.24.1",
+    "@clerk/tanstack-start": "^0.9.6",
     "@effect/platform": "^0.77.1",
     "@effect/platform-node": "^0.73.1",
     "@effect/schema": "^0.75.5",
@@ -41,19 +43,20 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",
+    "smee-client": "^2.0.4",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vinxi": "^0.5.3",
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "vite-tsconfig-paths": "^5.1.4",
     "@types/node": "^22.13.4",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.2",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

@@ -2,7 +2,6 @@
 // import * as fs from 'fs'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 // import { createServerFn } from '@tanstack/start'
-import { Button } from '@/components/ui/button'
 import { Container, Section } from '@/components/craft'
 // import { observable } from "@legendapp/state"
 import { useObservable, observer } from "@legendapp/state/react"
@@ -16,6 +15,13 @@ import WaitlistDialog from '@/components/WaitlistDialog'
 import { toast } from '@/hooks/use-toast'
 import { CustomEvents, subscribe, unsubscribe } from '@/lib/events'
 import { useEffect } from 'react'
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useSession
+} from "@clerk/tanstack-start"
 
 export const Route = createFileRoute('/')({
   component: observer(Home),
@@ -41,7 +47,9 @@ function Home() {
   // const router = useRouter()
   // const state = Route.useLoaderData()
   const openWaitlistDialog = useObservable<boolean>(false)
-  // const suggestedPrompt = useObservable<string>();
+  const defaultPrompt = useObservable<string>()
+  const session = useSession()
+  console.log('Session', session)
 
   const handlePromptSubmit = () => {
     openWaitlistDialog.set(true);
@@ -60,24 +68,36 @@ function Home() {
       <Section className='!p-0'>
         <Container className='grid gap-2'>
           <h1 className='text-2xl md:text-3xl !m-0 lg:text-5xl md:max-w-md lg:max-w-lg text-balance font-bold text-left font-sans tracking-tight bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-900 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]'>
-            Create shareable, lead generating links with AI.
+            Create shareable, lead generating short links with AI.
           </h1>
           <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
+          <div>
+            <SignedIn>
+              {/*<SignOutButton />*/}
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+          </div>
         </Container>
         <Container className='!py-2'>
           <Carousel opts={{
             align: "start",
             loop: true,
           }}>
-            <CarouselContent>
+            <CarouselContent className='flex items-stretch'>
               {
                 [
                   'Create a product link from uploaded image',
                   'Create a link to collect payments, crypto or fiat',
-                  'Create a form to collect product engagement data for a tshirt business',
+                  'Collect product engagement data in a form',
                   'Create a simple page with social media links'
                 ].map((v, index) => (
-                  <CarouselItem key={index} className="basis-1/2 lg:basis-1/3 h-full hover:cursor-pointer">
+                  <CarouselItem  onClick={() => {
+                    console.log('Prompt value', v, index)
+                    defaultPrompt.set(v)
+                  }} key={index} className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/3 h-full hover:cursor-pointer">
                     <Card key={index} className='h-full dark:bg-background'>
                       <CardContent className='md:p-3 p-2 px-4 lg:px-6 rounded-md h-full grid items-start justify-between aspect-video'>
                         <Sparkle className='size-3' />
@@ -101,7 +121,7 @@ function Home() {
           </div>
         </Container>*/}
         <Container>
-          <PromptForm onPromptSubmit={handlePromptSubmit} />
+          <PromptForm onPromptSubmit={handlePromptSubmit} promptValue={defaultPrompt.get()} />
           <WaitlistDialog
             open={openWaitlistDialog.get()}
             setIsOpen={(open) => openWaitlistDialog.set(open)}
