@@ -1,8 +1,7 @@
 import { Tabs, TabsContent, TabsContents, TabsList, TabsTrigger } from "@/components/animate-ui/radix/tabs";
 import { Main, Section } from "./craft";
 import Header from "@/components/header";
-import { useNavigate, useRouter, useRouterState } from "@tanstack/react-router";
-import { useState } from "react";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 
 
 type ILandingLayout = {
@@ -11,18 +10,14 @@ type ILandingLayout = {
 export default function SpndlLayout({
   children,
 }: ILandingLayout) {
-  const routerState = useRouterState()
   const router = useRouter()
-
   const params = router.routesByPath["/~/$id/$tab"].useParams()
-  console.log('Location', routerState.location)
-  console.log('Router', params)
 
   return (
     <Main className="w-full place-items-center items-center">
       <Header />
-      <Section className='lg:max-w-[75vw] min-h-screen container'>
-        <MainTabs children={children} spnId={params.id} />
+      <Section className='lg:max-w-[75vw] min-h-full container'>
+        <MainTabs children={children} spnId={params.id} currentTab={params.tab} />
       </Section>
     </Main>
   )
@@ -30,13 +25,12 @@ export default function SpndlLayout({
 
 
 interface CoreParams {id: string; tab: string};
-function MainTabs({ children, spnId }: ILandingLayout & {spnId: string}) {
+function MainTabs({ children, spnId, currentTab }: ILandingLayout & {spnId: string; currentTab: string}) {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<string>('chat')
 
   const updateParams = (newParams: CoreParams) => {
     navigate({
-      to: '/~/$id/$tab', // Current route
+      to: '/~/$id/$tab', // route to navigate to
       params: newParams,
       search: (prevSearch) => ({...prevSearch}), // Preserves existing query parameters
       replace: false, // Updates the current history entry
@@ -44,15 +38,11 @@ function MainTabs({ children, spnId }: ILandingLayout & {spnId: string}) {
   };
 
   const handleTabChange = (value: string) => {
-    setTab(value)
     updateParams({ tab: value, id: spnId });
   };
 
   return (
-    <Tabs defaultValue={tab} value={tab} onValueChange={(value: string) => {
-      console.log('Tab value', value)
-      handleTabChange(value)
-    }}>
+    <Tabs defaultValue={currentTab ?? 'chat'} value={currentTab} onValueChange={(value: string) => handleTabChange(value)}>
       <TabsList>
         <TabsTrigger value="chat">Chat</TabsTrigger>
         <TabsTrigger value="metrics">Metrics</TabsTrigger>
