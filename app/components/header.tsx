@@ -10,6 +10,12 @@ import { ThemeToggle } from "./theme-toggle";
 import { CustomEvents, publish } from "@/lib/events";
 import { Memo } from "@legendapp/state/react";
 import { op } from "@/lib/openpanel";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/tanstack-start"
 
 function Header() {
   // TODO: toggle certains things based on login state
@@ -20,13 +26,14 @@ function Header() {
           <div className="flex items-center gap-2">
             <Button variant={"secondary"} size={"icon"}>
               <Memo>
-              {() => getLogo()}
+                {() => getLogo()}
               </Memo>
             </Button>
             <span className="font-sans font-bold text-sm no-underline">spndl_</span>
           </div>
         </Link>
         <div className="flex items-center gap-2">
+          <UserAuthButton />
           <Button onClick={() => {
             publish(CustomEvents.ShowWaitlistDialog);
             op.track('join_waitlist_btn_clicked');
@@ -36,6 +43,21 @@ function Header() {
       </Container>
     </Section>
   );
+}
+
+function UserAuthButton() {
+  return (
+    <div>
+      <SignedIn>
+        {/*<SignOutButton />*/}
+        <UserButton />
+      </SignedIn>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+    </div>
+
+  )
 }
 
 const getLogo = (): React.ReactNode => {
