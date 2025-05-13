@@ -1,12 +1,12 @@
 // app/routes/index.tsx
-// import * as fs from 'fs'
-import { createFileRoute, useRouter } from '@tanstack/react-router'
+
+import { createFileRoute } from '@tanstack/react-router'
 // import { createServerFn } from '@tanstack/start'
 import { Container, Section } from '@/components/craft'
 // import { observable } from "@legendapp/state"
 import { useObservable, observer } from "@legendapp/state/react"
 import { Card, CardContent } from '@/components/ui/card'
-import { BrainCircuit, RefreshCcw, Sparkle } from 'lucide-react'
+import { BrainCircuit, Sparkle } from 'lucide-react'
 import PromptForm from '@/components/forms/prompt'
 import { WobbleCard } from '@/components/ui/wobble-card'
 import LandingLayout from '@/components/landing-layout'

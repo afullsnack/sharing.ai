@@ -33,7 +33,9 @@ export function ThemeProvider({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setTheme(() => (localStorage.getItem(storageKey) as Theme) ?? defaultTheme);
+      const storedTheme = localStorage.getItem(storageKey);
+      console.log('Stored theme token', storedTheme);
+      setTheme(() => storedTheme? storedTheme as Theme : defaultTheme);
     }
   }, []);
 

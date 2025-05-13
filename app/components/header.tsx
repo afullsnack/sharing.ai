@@ -12,6 +12,7 @@ import { Memo } from "@legendapp/state/react";
 import { op } from "@/lib/openpanel";
 
 function Header() {
+  // TODO: toggle certains things based on login state
   return (
     <Section className="w-full !p-0 border">
       <Container className="flex !p-3 md:max-w-md lg:max-w-2xl container justify-between items-center">

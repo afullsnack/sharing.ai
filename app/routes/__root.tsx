@@ -71,19 +71,19 @@ function RootComponent() {
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
-      <Layout>
-        <head>
-          <HeadContent />
-        </head>
-        <body>
-          <ThemeProvider defaultTheme='dark' storageKey='spndle-ui-theme'>
+      <ThemeProvider defaultTheme='dark' storageKey='spndle-ui-theme'>
+        <Layout className='dark'>
+          <head>
+            <HeadContent />
+          </head>
+          <body>
             {children}
             <Toaster />
-          </ThemeProvider>
-          <Scripts />
-          { /*process.env.NODE_ENV === "development" && <TanStackRouterDevtools position="bottom-right" />*/}
-        </body>
-      </Layout>
+            <Scripts />
+            { /*process.env.NODE_ENV === "development" && <TanStackRouterDevtools position="bottom-right" />*/}
+          </body>
+        </Layout>
+      </ThemeProvider>
     </ClerkProvider>
   )
 }

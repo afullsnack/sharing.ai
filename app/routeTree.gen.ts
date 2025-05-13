@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthedRouteImport } from './routes/_authed/~/route'
+import { Route as AuthedTestImport } from './routes/_authed/~/test'
 import { Route as AuthedIdImport } from './routes/_authed/~/$id'
 
 // Create/Update Routes
@@ -28,10 +30,22 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthedIdRoute = AuthedIdImport.update({
-  id: '/~/$id',
-  path: '/~/$id',
+const AuthedRouteRoute = AuthedRouteImport.update({
+  id: '/~',
+  path: '/~',
   getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedTestRoute = AuthedTestImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => AuthedRouteRoute,
+} as any)
+
+const AuthedIdRoute = AuthedIdImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthedRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -52,24 +66,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedImport
       parentRoute: typeof rootRoute
     }
+    '/_authed/~': {
+      id: '/_authed/~'
+      path: '/~'
+      fullPath: '/~'
+      preLoaderRoute: typeof AuthedRouteImport
+      parentRoute: typeof AuthedImport
+    }
     '/_authed/~/$id': {
       id: '/_authed/~/$id'
-      path: '/~/$id'
+      path: '/$id'
       fullPath: '/~/$id'
       preLoaderRoute: typeof AuthedIdImport
-      parentRoute: typeof AuthedImport
+      parentRoute: typeof AuthedRouteImport
+    }
+    '/_authed/~/test': {
+      id: '/_authed/~/test'
+      path: '/test'
+      fullPath: '/~/test'
+      preLoaderRoute: typeof AuthedTestImport
+      parentRoute: typeof AuthedRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface AuthedRouteChildren {
+interface AuthedRouteRouteChildren {
   AuthedIdRoute: typeof AuthedIdRoute
+  AuthedTestRoute: typeof AuthedTestRoute
+}
+
+const AuthedRouteRouteChildren: AuthedRouteRouteChildren = {
+  AuthedIdRoute: AuthedIdRoute,
+  AuthedTestRoute: AuthedTestRoute,
+}
+
+const AuthedRouteRouteWithChildren = AuthedRouteRoute._addFileChildren(
+  AuthedRouteRouteChildren,
+)
+
+interface AuthedRouteChildren {
+  AuthedRouteRoute: typeof AuthedRouteRouteWithChildren
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
-  AuthedIdRoute: AuthedIdRoute,
+  AuthedRouteRoute: AuthedRouteRouteWithChildren,
 }
 
 const AuthedRouteWithChildren =
@@ -78,28 +120,40 @@ const AuthedRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
+  '/~': typeof AuthedRouteRouteWithChildren
   '/~/$id': typeof AuthedIdRoute
+  '/~/test': typeof AuthedTestRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
+  '/~': typeof AuthedRouteRouteWithChildren
   '/~/$id': typeof AuthedIdRoute
+  '/~/test': typeof AuthedTestRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
+  '/_authed/~': typeof AuthedRouteRouteWithChildren
   '/_authed/~/$id': typeof AuthedIdRoute
+  '/_authed/~/test': typeof AuthedTestRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/~/$id'
+  fullPaths: '/' | '' | '/~' | '/~/$id' | '/~/test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/~/$id'
-  id: '__root__' | '/' | '/_authed' | '/_authed/~/$id'
+  to: '/' | '' | '/~' | '/~/$id' | '/~/test'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authed'
+    | '/_authed/~'
+    | '/_authed/~/$id'
+    | '/_authed/~/test'
   fileRoutesById: FileRoutesById
 }
 
@@ -133,12 +187,24 @@ export const routeTree = rootRoute
     "/_authed": {
       "filePath": "_authed.tsx",
       "children": [
-        "/_authed/~/$id"
+        "/_authed/~"
+      ]
+    },
+    "/_authed/~": {
+      "filePath": "_authed/~/route.tsx",
+      "parent": "/_authed",
+      "children": [
+        "/_authed/~/$id",
+        "/_authed/~/test"
       ]
     },
     "/_authed/~/$id": {
       "filePath": "_authed/~/$id.tsx",
-      "parent": "/_authed"
+      "parent": "/_authed/~"
+    },
+    "/_authed/~/test": {
+      "filePath": "_authed/~/test.tsx",
+      "parent": "/_authed/~"
     }
   }
 }
