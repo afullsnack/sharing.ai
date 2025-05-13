@@ -15,7 +15,7 @@ import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthedRouteImport } from './routes/_authed/~/route'
 import { Route as AuthedTestImport } from './routes/_authed/~/test'
-import { Route as AuthedIdImport } from './routes/_authed/~/$id'
+import { Route as AuthedIdTabImport } from './routes/_authed/~/$id.$tab'
 
 // Create/Update Routes
 
@@ -42,9 +42,9 @@ const AuthedTestRoute = AuthedTestImport.update({
   getParentRoute: () => AuthedRouteRoute,
 } as any)
 
-const AuthedIdRoute = AuthedIdImport.update({
-  id: '/$id',
-  path: '/$id',
+const AuthedIdTabRoute = AuthedIdTabImport.update({
+  id: '/$id/$tab',
+  path: '/$id/$tab',
   getParentRoute: () => AuthedRouteRoute,
 } as any)
 
@@ -73,18 +73,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedRouteImport
       parentRoute: typeof AuthedImport
     }
-    '/_authed/~/$id': {
-      id: '/_authed/~/$id'
-      path: '/$id'
-      fullPath: '/~/$id'
-      preLoaderRoute: typeof AuthedIdImport
-      parentRoute: typeof AuthedRouteImport
-    }
     '/_authed/~/test': {
       id: '/_authed/~/test'
       path: '/test'
       fullPath: '/~/test'
       preLoaderRoute: typeof AuthedTestImport
+      parentRoute: typeof AuthedRouteImport
+    }
+    '/_authed/~/$id/$tab': {
+      id: '/_authed/~/$id/$tab'
+      path: '/$id/$tab'
+      fullPath: '/~/$id/$tab'
+      preLoaderRoute: typeof AuthedIdTabImport
       parentRoute: typeof AuthedRouteImport
     }
   }
@@ -93,13 +93,13 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthedRouteRouteChildren {
-  AuthedIdRoute: typeof AuthedIdRoute
   AuthedTestRoute: typeof AuthedTestRoute
+  AuthedIdTabRoute: typeof AuthedIdTabRoute
 }
 
 const AuthedRouteRouteChildren: AuthedRouteRouteChildren = {
-  AuthedIdRoute: AuthedIdRoute,
   AuthedTestRoute: AuthedTestRoute,
+  AuthedIdTabRoute: AuthedIdTabRoute,
 }
 
 const AuthedRouteRouteWithChildren = AuthedRouteRoute._addFileChildren(
@@ -121,16 +121,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
   '/~': typeof AuthedRouteRouteWithChildren
-  '/~/$id': typeof AuthedIdRoute
   '/~/test': typeof AuthedTestRoute
+  '/~/$id/$tab': typeof AuthedIdTabRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
   '/~': typeof AuthedRouteRouteWithChildren
-  '/~/$id': typeof AuthedIdRoute
   '/~/test': typeof AuthedTestRoute
+  '/~/$id/$tab': typeof AuthedIdTabRoute
 }
 
 export interface FileRoutesById {
@@ -138,22 +138,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
   '/_authed/~': typeof AuthedRouteRouteWithChildren
-  '/_authed/~/$id': typeof AuthedIdRoute
   '/_authed/~/test': typeof AuthedTestRoute
+  '/_authed/~/$id/$tab': typeof AuthedIdTabRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/~' | '/~/$id' | '/~/test'
+  fullPaths: '/' | '' | '/~' | '/~/test' | '/~/$id/$tab'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/~' | '/~/$id' | '/~/test'
+  to: '/' | '' | '/~' | '/~/test' | '/~/$id/$tab'
   id:
     | '__root__'
     | '/'
     | '/_authed'
     | '/_authed/~'
-    | '/_authed/~/$id'
     | '/_authed/~/test'
+    | '/_authed/~/$id/$tab'
   fileRoutesById: FileRoutesById
 }
 
@@ -194,16 +194,16 @@ export const routeTree = rootRoute
       "filePath": "_authed/~/route.tsx",
       "parent": "/_authed",
       "children": [
-        "/_authed/~/$id",
-        "/_authed/~/test"
+        "/_authed/~/test",
+        "/_authed/~/$id/$tab"
       ]
-    },
-    "/_authed/~/$id": {
-      "filePath": "_authed/~/$id.tsx",
-      "parent": "/_authed/~"
     },
     "/_authed/~/test": {
       "filePath": "_authed/~/test.tsx",
+      "parent": "/_authed/~"
+    },
+    "/_authed/~/$id/$tab": {
+      "filePath": "_authed/~/$id.$tab.tsx",
       "parent": "/_authed/~"
     }
   }
