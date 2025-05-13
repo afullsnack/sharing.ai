@@ -1,6 +1,6 @@
 // app/routes/index.tsx
 
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 // import { createServerFn } from '@tanstack/start'
 import { Container, Section } from '@/components/craft'
 // import { observable } from "@legendapp/state"
@@ -16,12 +16,9 @@ import { toast } from '@/hooks/use-toast'
 import { CustomEvents, subscribe, unsubscribe } from '@/lib/events'
 import { useEffect } from 'react'
 import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
   useSession
 } from "@clerk/tanstack-start"
+import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/')({
   component: observer(Home),
@@ -71,15 +68,15 @@ function Home() {
             Create shareable, lead generating short links with AI.
           </h1>
           <span className='text-balance text-lg md:text-lg lg:text-xl md:max-w-md lg:max-w-lg'>Use one of the prompts below to begin creating your links</span>
-          <div>
-            <SignedIn>
-              {/*<SignOutButton />*/}
-              <UserButton />
-            </SignedIn>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-          </div>
+          {
+            session.session && (
+              <div>
+                <Link to='/~/$id/$tab' params={{ id: 'spndl_sdonosdvobobosdbvo', tab: 'chat' }}>
+                  <Button>Go to dashboard/spndls</Button>
+                </Link>
+              </div>
+            )
+          }
         </Container>
         <Container className='!py-2'>
           <Carousel opts={{
@@ -94,7 +91,7 @@ function Home() {
                   'Collect product engagement data in a form',
                   'Create a simple page with social media links'
                 ].map((v, index) => (
-                  <CarouselItem  onClick={() => {
+                  <CarouselItem onClick={() => {
                     console.log('Prompt value', v, index)
                     defaultPrompt.set(v)
                   }} key={index} className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/3 h-full hover:cursor-pointer">
