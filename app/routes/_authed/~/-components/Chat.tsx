@@ -1,6 +1,7 @@
 import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "@/components/ai-chat/chat-bubble"
 import { ChatMessageList } from "@/components/ai-chat/chat-message-list"
 import { Container } from "@/components/craft"
+import { AIChatInput } from "@/components/ui/ai-chat-input"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface IChatProps { }
@@ -77,9 +78,9 @@ export default function Chat(props: IChatProps) {
   console.log('Chat props', props)
 
   return (
-    <Container className="h-[800px] !px-0">
+    <Container className="h-[70vh] !p-0">
       <Card>
-        <CardContent className="bg-muted-forground">
+        <CardContent className="bg-muted-forground px-4">
           <ChatMessageList>
             {
               messages.map((message) => (
@@ -105,6 +106,7 @@ export default function Chat(props: IChatProps) {
               ))
             }
           </ChatMessageList>
+          <AIChatInput />
         </CardContent>
       </Card>
     </Container>
