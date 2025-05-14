@@ -16,7 +16,7 @@ export default function SpndlLayout({
   return (
     <Main className="w-full place-items-center items-center">
       <Header />
-      <Section className='lg:max-w-[75vw] min-h-full container'>
+      <Section className='lg:max-w-3xl min-h-full container'>
         <MainTabs children={children} spnId={params.id} currentTab={params.tab} />
       </Section>
     </Main>
