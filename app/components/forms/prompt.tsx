@@ -29,12 +29,13 @@ const FormSchema = z.object({
 
 interface IPromptForm {
   onPromptSubmit: () => void;
-  promptValue?: string;
-  updatePromptValue?: (value: string) => void
+  promptValue: string;
+  updatePromptValue: (value: string) => void
 }
 function PromptForm({
   onPromptSubmit,
   promptValue,
+  updatePromptValue
 }: IPromptForm) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -43,6 +44,7 @@ function PromptForm({
     }
   })
 
+  console.log('Default prompt value:::', promptValue)
   form.setValue('prompt', promptValue ?? '')
   
   function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -70,6 +72,10 @@ function PromptForm({
                 <div className={cn("group grid border rounded-lg overflow-hidden transition-shadow duration-200 focus-within:shadow-md focus-within:ring-2 focus-within:ring-primary")}>
                   <Textarea
                     {...field}
+                    onChange={(e) => {
+                      console.log('Textarea onChange:::', e.target.value)
+                      updatePromptValue(e.target.value)
+                    }}
                     placeholder="Ask for a suggestion or to generate images"
                     className="min-h-[100px] resize-none bg-white dark:bg-background border-none ring-0 outline-0 focus-visible:ring-0 resize-none"
                   />

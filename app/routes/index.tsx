@@ -118,7 +118,14 @@ function Home() {
           </div>
         </Container>*/}
         <Container>
-          <PromptForm onPromptSubmit={handlePromptSubmit} promptValue={defaultPrompt.get()} />
+          <PromptForm
+            onPromptSubmit={handlePromptSubmit}
+            promptValue={defaultPrompt.get() ?? ''}
+            updatePromptValue={(currentValue: string) => {
+              console.log('updating value:::', currentValue)
+              defaultPrompt.set(currentValue)
+            }}
+          />
           <WaitlistDialog
             open={openWaitlistDialog.get()}
             setIsOpen={(open) => openWaitlistDialog.set(open)}
