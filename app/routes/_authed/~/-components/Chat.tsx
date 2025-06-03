@@ -1,7 +1,7 @@
 import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "@/components/ai-chat/chat-bubble"
 import { ChatMessageList } from "@/components/ai-chat/chat-message-list"
 import { Container } from "@/components/craft"
-import { AIChatInput } from "@/components/ui/ai-chat-input"
+import PromptForm from "@/components/forms/prompt"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface IChatProps { }
@@ -29,47 +29,47 @@ const messages = [
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 5,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 6,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 7,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 8,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 9,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 10,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 11,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 12,
     message: 'Long Test message',
     sender: 'ai'
   },
   {
-    id: 4,
+    id: 13,
     message: 'Long Test message',
     sender: 'ai'
   },
@@ -78,7 +78,7 @@ export default function Chat(props: IChatProps) {
   console.log('Chat props', props)
 
   return (
-    <Container className="h-[70vh] !p-0">
+    <Container className="!p-0">
       <Card>
         <CardContent className="bg-muted-forground px-4">
           <ChatMessageList>
@@ -106,7 +106,7 @@ export default function Chat(props: IChatProps) {
               ))
             }
           </ChatMessageList>
-          <AIChatInput />
+          <PromptForm promptValue="" onPromptSubmit={() => {}} updatePromptValue={(value) => {}} />
         </CardContent>
       </Card>
     </Container>
