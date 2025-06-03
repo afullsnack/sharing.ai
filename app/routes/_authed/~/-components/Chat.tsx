@@ -2,7 +2,8 @@ import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "@/components/ai
 import { ChatMessageList } from "@/components/ai-chat/chat-message-list"
 import { Container } from "@/components/craft"
 import PromptForm from "@/components/forms/prompt"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 
 interface IChatProps { }
 
@@ -10,7 +11,7 @@ interface IChatProps { }
 const messages = [
   {
     id: 1,
-    message: 'Test message',
+    message: 'Hello how can I help?',
     sender: 'ai'
   },
   {
@@ -25,7 +26,7 @@ const messages = [
   },
   {
     id: 4,
-    message: 'Long Test message',
+    message: 'Long response message',
     sender: 'ai'
   },
   {
@@ -74,13 +75,12 @@ const messages = [
     sender: 'ai'
   },
 ]
-export default function Chat(props: IChatProps) {
-  console.log('Chat props', props)
+export default function Chat(_props: IChatProps) {
 
   return (
     <Container className="!p-0">
-      <Card>
-        <CardContent className="bg-muted-forground px-4">
+      <Card className="h-[65dvh]">
+        <CardContent className="bg-transparent p-0 h-full">
           <ChatMessageList>
             {
               messages.map((message) => (
@@ -106,8 +106,10 @@ export default function Chat(props: IChatProps) {
               ))
             }
           </ChatMessageList>
-          <PromptForm promptValue="" onPromptSubmit={() => {}} updatePromptValue={(value) => {}} />
         </CardContent>
+        <CardFooter className="flex items-center justify-center p-4">
+          <Button>Setup agent workflow</Button>
+        </CardFooter>
       </Card>
     </Container>
   )

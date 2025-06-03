@@ -15,8 +15,7 @@ export default function SpndlLayout({
 
   return (
     <Main className="w-full place-items-center items-center">
-      <Header />
-      <Section className='lg:max-w-3xl min-h-full container'>
+      <Section className='lg:max-w-3xl min-h-[90vh] overflow-hidden container'>
         <MainTabs children={children} spnId={params.id} currentTab={params.tab} />
       </Section>
     </Main>
@@ -42,7 +41,10 @@ function MainTabs({ children, spnId, currentTab }: ILandingLayout & {spnId: stri
   };
 
   return (
-    <Tabs defaultValue={currentTab ?? 'chat'} value={currentTab} onValueChange={(value: string) => handleTabChange(value)}>
+    <Tabs
+      defaultValue={currentTab ?? 'chat'}
+      value={currentTab}
+      onValueChange={(value: string) => handleTabChange(value)}>
       <TabsList>
         <TabsTrigger value="chat">Chat</TabsTrigger>
         <TabsTrigger value="metrics">Metrics</TabsTrigger>
